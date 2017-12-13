@@ -1,0 +1,70 @@
+.attachment-box {
+  width: 30%;
+  border: 1px solid rgba(210, 214, 217, 1);
+}
+
+.title {
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  text-align: left;
+  height: 52px;
+  background-color: rgba(245, 246, 246, 1);
+}
+
+.title p {
+  padding-top: 16px;
+  padding-left:20px;
+}
+
+.select-file-container {
+  text-align: center;
+}
+
+.image {
+  padding-top:36px;
+}
+
+img {
+  width: 54px;
+  height: 40px;
+}
+
+.description {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.description-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #4C5358;
+}
+
+.description-size {
+  font-size: 14px;
+  color: #6C777C;
+  font-weight: 400;
+  padding-bottom: 15px;
+}
+
+.file-button {
+  width: 98px;
+  height: 44px;
+  background: rgba(245, 245, 246, 1);
+  box-sizing: border-box;
+  border: 1px solid rgba(169, 177, 181, 1);
+  border-radius: 3px;
+  font-weight: 400;
+  font-size: 16px;
+  border-image: none;
+  margin: 0 auto;
+}
+
+span {
+  display: block;
+}
+
+#file {
+  display: block;
+}

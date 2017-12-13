@@ -1,20 +1,85 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="attachment-box">
+  <div class="title">
+    <p>Attachment</p>
+  </div>
+  <div class="select-file-container">
+    <div class="image">
+      <img
+        id="img"
+        src="https://d2v8ggac1o0f6z.cloudfront.net/gsc/NAUOZA/5e/b3/62/5eb362699da54eb4b770ebb3617ff235/images/edit_invoice__with_preview__ver01/u51163.png?token=a4cf72a85007076e922e6dc2ddc56dcc"
+      >
+    </div>
+    <div class="description">
+      <p class="description-title">Drag & drop invoice file</p>
+      <span class="description-size">(max 10 MB size)</span>
+      <span>or</span>
+    </div>
+    <input class="file-button" (change)="onFileSelected()" type="file" id="file">
+  </div>
 
+  <div *ngIf="error" class="error mb">
+    {{ error.message | json }}
+  </div>
+
+  <div class=page-content *ngIf="isPdfViewerVisible">
+    <div mdl>
+      <button (click)="incrementZoom(-0.1)" class="mdl-button mdl-js-button">
+        -
+      </button>
+      <div>
+        <input [(ngModel)]="zoom"
+               [value]="zoom"
+               type="number"
+               pattern="-?[0-9]*(\.[0-9]+)?"
+               id="pdf-zoom"
+        >
+        <label for="pdf-zoom">Zoom</label>
+        <span>Input is not a number!</span>
+      </div>
+      <button (click)="incrementZoom(0.1)">
+        +
+      </button>
+    </div>
+
+    <div>
+      <button (click)="incrementPage(-1)">
+        Previous
+      </button>
+      <div>
+        <input [(ngModel)]="page"
+               [value]="page"
+               type="number"
+               pattern="-?[0-9]*(\.[0-9]+)?"
+               id="pdf-page"
+        >
+        <label for="pdf-page">Page</label>
+        <span>Input is not a number!</span>
+      </div>
+      <span *ngIf="pdf">of {{ pdf.numPages }}</span>
+      <button (click)="incrementPage(1)">
+        Next
+      </button>
+    </div>
+
+    <div *ngIf="!isLoaded && !error && progressData" id="progress">
+      <div class="bg">
+        <div class="bar" [style.width]="progressData.loaded / progressData.total * 100 + '%'"></div>
+      </div>
+      <span>{{ getInt(progressData.loaded / progressData.total * 100) }}%</span>
+    </div>
+
+    <pdf-viewer [src]="pdfSrc"
+                [(page)]="page"
+                [original-size]="originalSize"
+                (after-load-complete)="afterLoadComplete($event)"
+                [zoom]="zoom"
+                [show-all]="showAll"
+                [stick-to-page]="stickToPage"
+                [render-text]="renderText"
+                [external-link-target]="'blank'"
+                [autoresize]="autoresize"
+                (error)="onError($event)"
+                (on-progress)="onProgress($event)"
+    ></pdf-viewer>
+  </div>
+</div>
